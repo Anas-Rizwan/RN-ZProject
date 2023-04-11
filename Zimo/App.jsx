@@ -2,11 +2,11 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import VideoContent from './src/Screens/Video/VideoContent'
+import ImageSlide from './src/Screens/Image/ImageSlide';
 
-// create a component
 const MyComponent = () => {
   return (
-    <VideoContent />
+    <ImageSlide />
   );
 };
 
