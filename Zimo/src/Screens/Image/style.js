@@ -1,95 +1,118 @@
-import { Dimensions, Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, StyleSheet, } from 'react-native'
+import { moderateScale, moderateVerticalScale, scale } from 'react-native-size-matters';
 
 const { height, width } = Dimensions.get('window');
 
 export default styles = StyleSheet.create({
-    // ****************** ImageItem style ***************************
-    renderView: {
+    container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
+
     },
+    // ****************** ImageItem style ***************************
+    
 
     bgImgView: {
         alignItems: 'center',
         width,
+        alignSelf: 'center',
     },
 
     bgImg: {
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
+        borderTopLeftRadius: scale(20),
+        borderTopRightRadius: scale(20),
         overflow: 'hidden',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: 400,
-        height: height / 2 + 150,
+        width: moderateScale(340),
+        height: moderateVerticalScale(450),
     },
-    TopTimerView: {
-        marginTop: 30,
-    },
+    
 
     iconView: {
-        marginTop: 20,
+        marginTop: moderateVerticalScale(20),
         flexDirection: 'row',
         justifyContent: 'flex-end',
+        
     },
     bottomview: {
-        width: '100%',
+        // width: '100%',
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
+        alignItems: 'flex-end',
+        justifyContent: 'space-between',
+    },
+    progressview:{
+        marginRight: moderateScale(60),
     },
     pricebox: {
-
-        marginTop: 20,
+        marginTop: moderateVerticalScale(20),
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
     },
     bottom_text_view: {
         flexDirection: 'row',
-        marginTop: 9,
-        // backgroundColor: 'white',
+        marginTop: moderateVerticalScale(7),
     },
     bottomtext: {
-        marginHorizontal: 4,
+        marginHorizontal: moderateScale(4),
         color: 'white',
-        fontSize: 9,
+        fontSize: scale(8),
     },
     bottom_end_text: {
-        marginTop: 4,
-        marginRight: 25,
+        marginVertical: moderateVerticalScale(4),
+        marginRight: moderateScale(25),
         color: 'white',
-        fontSize: 9,
+        fontSize: scale(7),
     },
     bottom_btn_view: {
-        width: "98%",
-        height: height / 2 - 310,
+        width: moderateScale(340),
+        height: moderateVerticalScale(52),
         backgroundColor: 'black',
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
+        borderBottomLeftRadius: moderateScale(20),
+        borderBottomRightRadius: moderateScale(20),
         justifyContent: 'center',
-        marginTop: 5,
+        alignSelf: 'center',
+        marginTop: moderateVerticalScale(5),
     },
     btn_view: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
     },
     btn_text: {
         color: 'white',
-        fontSize: 16,
-        
+        fontSize: scale(16),
+        marginHorizontal: moderateScale(24),
     },
     btn_end_text: {
-        marginTop: 2,
-        marginRight: 25,
+        alignSelf: 'flex-end',
+        marginRight: moderateScale(25),
         color: 'white',
-        fontSize: 7,
+        fontSize: scale(7),
     },
-// ****************** Pagination style ***************************
+    // ****************** Pagination style ***************************
     pagination_view: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginTop: 10,
+        marginTop: moderateVerticalScale(10),
+    },
+
+    // ****************** Timer style ***************************
+    digitStyle:
+    {
+        backgroundColor: 'transparent',
+        height: moderateVerticalScale(70),
+        width: moderateScale(80),
+    },
+    digitTxtStyle: {
+        color: '#fff',
+        fontWeight: 100,
+        fontSize: scale(40)
+    },
+    timeLabelStyle: {
+        color: '#fff',
+        fontWeight: 100,
+        marginTop: moderateVerticalScale(-13),
+        fontSize: scale(12),
     },
 })

@@ -1,7 +1,9 @@
-import {  Image, ImageBackground, Text, View } from 'react-native'
+import { Image, ImageBackground, Text, View } from 'react-native'
 import React from 'react'
 import Pagination from './Pagination';
 import styles from './style';
+import Timer from './Timer';
+import { moderateScale } from 'react-native-size-matters';
 
 
 const ImageItem = ({ item, currentIndex }) => {
@@ -13,11 +15,11 @@ const ImageItem = ({ item, currentIndex }) => {
                 <ImageBackground source={item.bgimg} style={styles.bgImg} >
                     <View >
                         <View style={styles.TopTimerView}>
-                            <Image source={item.time} />
+                            <Timer />
                         </View>
                         <View style={styles.iconView}>
-                            <Image source={item.forwardicon} style={{ tintColor: 'white', marginHorizontal: 10, }} />
-                            <Image source={item.favicon} style={{ tintColor: '#B00000', }} />
+                            <Image source={item.forwardicon} style={{ tintColor: 'white', }} />
+                            <Image source={item.favicon} style={{ tintColor: '#B00000', marginHorizontal: moderateScale(21), }} />
                         </View>
                     </View>
 
@@ -37,29 +39,24 @@ const ImageItem = ({ item, currentIndex }) => {
                             </View>
 
                         </View>
+                        {/* <View style={{marginLeft: 30,marginRight: 30, backgroundColor: 'red',width: '50%',}}> */}
+
                         <View style={styles.bottom_text_view}>
-                            <Text style={styles.bottomtext}>SHELTON STREET</Text>
+                            <Text style={[styles.bottomtext,{marginLeft: 30,}]}>SHELTON STREET</Text>
                             <Text style={styles.bottomtext}>COVENT GARDEN</Text>
                             <Text style={styles.bottomtext}>LONDON</Text>
                             <Text style={styles.bottomtext}>WC2H</Text>
-                            <Text style={styles.bottomtext}>UNITED KINGDOM</Text>
+                            <Text style={[styles.bottomtext,{marginRight: 30,}]}>UNITED KINGDOM</Text>
                         </View>
                         <View style={{ alignSelf: 'flex-end', }}>
                             <Text style={styles.bottom_end_text}>#ZM7861234567</Text>
                         </View>
+                        {/* </View> */}
                     </View>
                 </ImageBackground>
             </View>
 
-            <View style={styles.bottom_btn_view}>
-                <View style={styles.btn_view}>
-                    <Text style={styles.btn_text}>£25.00 GBP</Text>
-                    <Text style={styles.btn_text}>BUY ENTRY NOW</Text>
-                </View>
-                <View style={{ alignSelf: 'flex-end', }}>
-                    <Text style={styles.btn_end_text}>#ZM7861234567</Text>
-                </View>
-            </View>
+
         </View>
     )
 }

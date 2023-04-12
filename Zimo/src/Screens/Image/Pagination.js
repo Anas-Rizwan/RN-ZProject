@@ -12,7 +12,7 @@ const Pagination = ({ item, currentIndex }) => {
                     <View
                         key={index}
                         style={{
-                            width: 35,
+                            width: 30,
                             height: 2,
                             borderRadius: currentIndex == index ? 5 : 4,
                             backgroundColor: currentIndex == index ? '#BE9F56' : 'gray',
