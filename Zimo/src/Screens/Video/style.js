@@ -30,6 +30,7 @@ export default styles = StyleSheet.create({
     },
     videocontainer: {
         flexDirection: 'column',
+        position: 'relative',
     },
     video: {
         height: "100%",
@@ -40,11 +41,42 @@ export default styles = StyleSheet.create({
         width: width,
         backgroundColor: 'black',
     },
-    controlOverlay: {
+    bottom_view_landscape: {
+        flexDirection: 'column',
+        bottom: moderateVerticalScale(70),
+    },
+    bottom_view_potrait: {
         position: 'absolute',
-        top: "47%",
-        bottom: moderateVerticalScale(0),
-        left: "88%",
-        right: moderateScale(0),
+        flexDirection: 'column',
+        alignSelf: 'center',
+        bottom: moderateVerticalScale(160),
+    },
+    bottom_text_view:{
+        flexDirection: 'row',
+        alignSelf: 'center',
+    },
+    bottomtext: {
+        color: 'white',
+        fontSize: scale(7.5),
+        marginHorizontal: moderateScale(5),
+    },
+    bottom_price_text: {
+        color: 'white',
+        fontSize: scale(9.5),
+        alignSelf: 'center',
+        marginTop: moderateVerticalScale(8),
+    },
+    bottom_end_text_potrait: {
+        color: 'white',
+        fontSize: scale(7),
+        alignSelf: 'flex-end',
+        marginTop: moderateVerticalScale(-7),
+    },
+    bottom_end_text_landscape: {
+        color: 'white',
+        fontSize: scale(7),
+        alignSelf: 'flex-end',
+        marginTop: moderateVerticalScale(-7),
+        marginRight: moderateScale(28),
     },
 });

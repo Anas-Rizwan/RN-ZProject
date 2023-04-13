@@ -1,6 +1,6 @@
 //import liraries
 import React, { useState, useEffect } from 'react';
-import { View, Image, StatusBar, Dimensions, TouchableHighlight } from 'react-native';
+import { View, Image, StatusBar, Text, TouchableHighlight } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
 import VideoPlayer from 'react-native-video-player'
 import Video from 'react-native-video'
@@ -73,27 +73,35 @@ const VideoContent = () => {
                                 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
                         }}
                         resizeMode='contain'
-                        controls={true}
+                        // controls={true}
                         style={fullscreen ? styles.fullscreenVideo : styles.video}
                     />
-                    {/* <VideoPlayer
-                        controlsTimeout={5000}
-                        showDuration={true}
-                        // defaultMuted
-                        // autoplay
-                        // disableSeek
-                        // source={{
-                        //     uri:
-                        //         'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
-                        // }}
-                        video={{ uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4' }}
-                        // videoWidth={1600}
-                        // videoHeight={900}
-                    thumbnail={{ uri: 'https://i.picsum.photos/id/866/1600/900.jpg' }}
-                    /> */}
 
                 </TouchableHighlight>
+                {
+                    show ?
+
+                        <View style={fullscreen ? styles.bottom_view_landscape : styles.bottom_view_potrait}>
+
+                            <View style={styles.bottom_text_view}>
+                                <Text style={styles.bottomtext}>SHELTON STREET</Text>
+                                <Text style={styles.bottomtext}>COVENT GARDEN</Text>
+                                <Text style={styles.bottomtext}>LONDON</Text>
+                                <Text style={styles.bottomtext}>WC2H</Text>
+                                <Text style={styles.bottomtext}>UNITED KINGDOM</Text>
+                            </View>
+
+                            <View>
+                                <Text style={styles.bottom_price_text}>£5,000,000 GBP</Text>
+                                <Text style={fullscreen ? styles.bottom_end_text_landscape : styles.bottom_end_text_potrait}>#ZM7861234567</Text>
+                            </View>
+
+                        </View>
+                        :
+                        ""
+                }
             </View>
+
         </View>
     );
 };

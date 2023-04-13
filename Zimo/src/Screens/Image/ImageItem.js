@@ -42,11 +42,11 @@ const ImageItem = ({ item, currentIndex }) => {
                         {/* <View style={{marginLeft: 30,marginRight: 30, backgroundColor: 'red',width: '50%',}}> */}
 
                         <View style={styles.bottom_text_view}>
-                            <Text style={[styles.bottomtext,{marginLeft: 30,}]}>SHELTON STREET</Text>
+                            <Text style={styles.bottomtext}>SHELTON STREET</Text>
                             <Text style={styles.bottomtext}>COVENT GARDEN</Text>
                             <Text style={styles.bottomtext}>LONDON</Text>
                             <Text style={styles.bottomtext}>WC2H</Text>
-                            <Text style={[styles.bottomtext,{marginRight: 30,}]}>UNITED KINGDOM</Text>
+                            <Text style={styles.bottomtext}>UNITED KINGDOM</Text>
                         </View>
                         <View style={{ alignSelf: 'flex-end', }}>
                             <Text style={styles.bottom_end_text}>#ZM7861234567</Text>
