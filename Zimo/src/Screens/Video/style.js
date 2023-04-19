@@ -24,18 +24,17 @@ export default styles = StyleSheet.create({
         justifyContent: 'space-between',
         zIndex: scale(1),
     },
-    
+
     head_logo_potrait: {
         marginTop: moderateVerticalScale(40),
     },
     head_arrow_potrait: {
         marginTop: moderateVerticalScale(42),
-        marginRight: moderateScale(25),
+        marginRight: moderateScale(20),
     },
     head_rightIcon_potrait: {
         flexDirection: 'row',
         marginTop: moderateVerticalScale(40),
-        // marginRight: moderateScale(30),
     },
     head_logo_landscape: {
         marginTop: moderateVerticalScale(22),
@@ -64,7 +63,7 @@ export default styles = StyleSheet.create({
     },
     bottom_view_landscape: {
         flexDirection: 'column',
-        bottom: moderateVerticalScale(70),
+        bottom: moderateVerticalScale(90),
     },
     bottom_view_potrait: {
         width: '100%',
@@ -101,5 +100,56 @@ export default styles = StyleSheet.create({
         alignSelf: 'flex-end',
         marginTop: moderateVerticalScale(-7),
         marginRight: moderateScale(30),
+    },
+
+    // Player Control Styles
+    Control_wrapper_potrait: {
+        position: 'absolute',
+        bottom: moderateVerticalScale(245),
+    },
+    Control_wrapper_landscape: {
+        position: 'absolute',
+        bottom: moderateVerticalScale(5),
+    },
+    touchable: {
+        padding: 5,
+    },
+    touchableDisabled: {
+        opacity: 0.3,
+    },
+
+    // Progress Bar Styles
+    Progress_wrapper_potrait: {
+        width: "90%",
+        position: 'absolute',
+        bottom: moderateVerticalScale(250),
+        left: moderateScale(40),
+        // backgroundColor: 'blue',
+        // flex: 1,
+    },
+    Progress_wrapper_landscape: {
+        width: "90%",
+        position: 'absolute',
+        bottom: moderateVerticalScale(5),
+        left: moderateScale(40),
+    },
+    timeWrapper: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 5,
+    },
+    timeLeft: {
+        flex: 1,
+        fontSize: 16,
+        color: '#FFFFFF',
+        paddingLeft: 10,
+    },
+    timeRight: {
+        flex: 1,
+        fontSize: 16,
+        color: '#FFFFFF',
+        textAlign: 'right',
+        paddingRight: 10,
     },
 });

@@ -10,7 +10,7 @@ import store from './src/redux/store';
 const MyComponent = () => {
   return (
     <Provider store={store}>
-      <Card />
+      <VideoContent />
     </Provider>
   );
 };

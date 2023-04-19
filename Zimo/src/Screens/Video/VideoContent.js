@@ -1,15 +1,18 @@
 //import liraries
 import React, { useState, useEffect } from 'react';
-import { View, Image, StatusBar, Text, TouchableHighlight, ActivityIndicator } from 'react-native';
+import { View, Image, StatusBar, Text, TouchableHighlight, ActivityIndicator, Alert } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
 import Video from 'react-native-video'
 import Orientation from 'react-native-orientation-locker';
 import styles from './style';
-
-
+import ProgressBar from './ProgressBar';
+import PlayerControls from './PlayerControls';
 
 const VideoContent = () => {
 
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(0);
+    const [play, setPlay] = useState(false);
     const [show, setshow] = useState(true);
     const [fullscreen, setFullscreen] = useState(false);
     const [loading, setloading] = useState(true);
@@ -25,7 +28,7 @@ const VideoContent = () => {
     useEffect(() => {
         setTimeout(() => {
             setloading(false)
-        }, 2000);
+        }, 5000);
 
     }, [])
 
@@ -39,7 +42,52 @@ const VideoContent = () => {
         }
     };
     const handleclick = () => {
+        console.log(show);
         setshow(!show)
+        setTimeout(() => setshow(false), 5000);
+    }
+
+    const handlePlayPause = () => {
+        if (play) {
+            setPlay(false);
+            setTimeout(() => setshow(false), 2000);
+            return;
+        }
+        setTimeout(() => setshow(false), 2000);
+        setPlay(true);
+    };
+
+    const handlePlay = () => {
+        setTimeout(() => setshow(false), 2000);
+        setPlay(true);
+    };
+
+    const onLoadEnd = data => {
+        setDuration(data.duration);
+        setCurrentTime(data.currentTime);
+    };
+
+    const onProgress = data => {
+        setCurrentTime(data.currentTime);
+    };
+
+    const onSeek = data => {
+        videoRef.current.seek(data.seekTime);
+        setCurrentTime(data.seekTime);
+    };
+
+    const onEnd = () => {
+        setPlay(false);
+        videoRef.current.seek(0);
+    };
+    
+    const onError = () => {
+        Alert.alert('There is an Error while playing video');
+      
+    }
+    const onBuffer = () => {
+        Alert.alert('There is an Error while playing video');
+      
     }
 
     return (
@@ -67,20 +115,48 @@ const VideoContent = () => {
                 loading ?
                     <ActivityIndicator size="large" color="#fff" style={{ flex: 1, justifyContent: 'center', }} />
                     :
-                    <View style={styles.videocontainer}>
+                    <TouchableHighlight activeOpacity={1} onPress={handleclick}>
+                        <View style={styles.videocontainer}>
 
-                        <TouchableHighlight activeOpacity={1} onPress={handleclick}>
 
                             <Video
                                 ref={videoRef}
-                                source={require('../../Assets/Video.mp4')}
+                                source={{
+                                    uri:
+                                        'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+                                }}
                                 resizeMode='contain'
-                                controls={true}
                                 style={fullscreen ? styles.fullscreenVideo : styles.video}
+                                onLoad={onLoadEnd}
+                                onProgress={onProgress}
+                                onEnd={onEnd}
+                                paused={!play}
+                                onError={onError}
+                                onBuffer={onBuffer}
                             />
+                            {show && (
+                                <View style={styles.controlOverlay}>
 
-                        </TouchableHighlight>
-                    </View>
+
+                                    <PlayerControls
+                                        onPlay={handlePlay}
+                                        onPause={handlePlayPause}
+                                        playing={play}
+                                        fullscreen={fullscreen}
+                                        />
+
+                                    <ProgressBar
+                                        currentTime={currentTime}
+                                        duration={duration > 0 ? duration : 0}
+                                        onSlideStart={handlePlayPause}
+                                        onSlideComplete={handlePlayPause}
+                                        onSlideCapture={onSeek}
+                                        fullscreen={fullscreen}
+                                        />
+                                </View>
+                            )}
+                        </View>
+                    </TouchableHighlight>
             }
             {
                 show ?
