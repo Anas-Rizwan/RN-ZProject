@@ -7,7 +7,7 @@ const PlayerControls = props => {
     const { playing, onPlay, onPause, fullscreen } = props;
 
     return (
-        <View style={fullscreen ? styles.Control_wrapper_landscape : styles.Control_wrapper_potrait}>
+        <View style={styles.Control_wrapper}>
 
             <TouchableOpacity
             activeOpacity={0.7}

@@ -7,16 +7,19 @@ import Orientation from 'react-native-orientation-locker';
 import styles from './style';
 import ProgressBar from './ProgressBar';
 import PlayerControls from './PlayerControls';
+import axios from 'axios'
 
 const VideoContent = () => {
 
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
-    const [play, setPlay] = useState(false);
+    const [play, setPlay] = useState(true);
     const [show, setshow] = useState(true);
     const [fullscreen, setFullscreen] = useState(false);
     const [loading, setloading] = useState(true);
+    const [uri, seturi] = useState('');
 
+    
     const videoRef = React.createRef();
     useEffect(() => {
         Orientation.addOrientationListener(handleOrientation);
@@ -25,9 +28,20 @@ const VideoContent = () => {
         };
     }, []);
 
+    // const GetUri = async ()=>{
+    //     try {
+    //         const link = await axios.get('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4')
+    //         // const url = link.json()
+    //         console.log('link' ,link);
+    //         seturi(link)
+    //         setloading(false)
+    //     } catch (error) {
+    //         console.log("There is an Error");
+    //     }
+    // }
     useEffect(() => {
         setTimeout(() => {
-            setloading(false)
+        setloading(false)
         }, 5000);
 
     }, [])
@@ -44,25 +58,27 @@ const VideoContent = () => {
     const handleclick = () => {
         console.log(show);
         setshow(!show)
-        setTimeout(() => setshow(false), 5000);
+        // setTimeout(() => setshow(false), 5000);
     }
 
     const handlePlayPause = () => {
         if (play) {
             setPlay(false);
-            setTimeout(() => setshow(false), 2000);
+            setTimeout(() => setshow(false), 5000);
             return;
         }
-        setTimeout(() => setshow(false), 2000);
+        // setTimeout(() => setshow(false), 5000);
         setPlay(true);
     };
 
     const handlePlay = () => {
-        setTimeout(() => setshow(false), 2000);
+        console.log("on play ");
+        setTimeout(() => setshow(false), 5000);
         setPlay(true);
     };
 
-    const onLoadEnd = data => {
+    const onLoad = data => {
+        setloading(false)
         setDuration(data.duration);
         setCurrentTime(data.currentTime);
     };
@@ -80,16 +96,16 @@ const VideoContent = () => {
         setPlay(false);
         videoRef.current.seek(0);
     };
-    
+
     const onError = () => {
         Alert.alert('There is an Error while playing video');
-      
+
     }
     const onBuffer = () => {
         Alert.alert('There is an Error while playing video');
-      
-    }
 
+    }
+   
     return (
         <View style={styles.container}>
             <StatusBar translucent backgroundColor='transparent' />
@@ -112,27 +128,29 @@ const VideoContent = () => {
 
 
             {
-                loading ?
-                    <ActivityIndicator size="large" color="#fff" style={{ flex: 1, justifyContent: 'center', }} />
-                    :
+                loading &&
+                <ActivityIndicator size="large" color="#fff" style={{ justifyContent: 'center',alignSelf: 'center', position: 'absolute', top: '50%',}} />
+                    }
                     <TouchableHighlight activeOpacity={1} onPress={handleclick}>
                         <View style={styles.videocontainer}>
 
 
                             <Video
                                 ref={videoRef}
-                                source={{
-                                    uri:
-                                        'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
-                                }}
+                                source={{ uri:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4' }}
                                 resizeMode='contain'
                                 style={fullscreen ? styles.fullscreenVideo : styles.video}
-                                onLoad={onLoadEnd}
+                                onLoad={onLoad}
                                 onProgress={onProgress}
                                 onEnd={onEnd}
                                 paused={!play}
                                 onError={onError}
-                                onBuffer={onBuffer}
+                                // onLoadStart={onLoadStart}
+                                // onLoadEnd={onLoadEnd}
+                                // onBuffer={onBuffer}
+                                onVideoBuffer={() => {
+                                    console.log("Video Buffer");
+                                }}
                             />
                             {show && (
                                 <View style={styles.controlOverlay}>
@@ -143,7 +161,7 @@ const VideoContent = () => {
                                         onPause={handlePlayPause}
                                         playing={play}
                                         fullscreen={fullscreen}
-                                        />
+                                    />
 
                                     <ProgressBar
                                         currentTime={currentTime}
@@ -152,12 +170,12 @@ const VideoContent = () => {
                                         onSlideComplete={handlePlayPause}
                                         onSlideCapture={onSeek}
                                         fullscreen={fullscreen}
-                                        />
+                                    />
                                 </View>
                             )}
                         </View>
                     </TouchableHighlight>
-            }
+            {/* } */}
             {
                 show ?
 

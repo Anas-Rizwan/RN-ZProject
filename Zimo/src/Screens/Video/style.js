@@ -103,11 +103,8 @@ export default styles = StyleSheet.create({
     },
 
     // Player Control Styles
-    Control_wrapper_potrait: {
-        position: 'absolute',
-        bottom: moderateVerticalScale(245),
-    },
-    Control_wrapper_landscape: {
+    
+    Control_wrapper: {
         position: 'absolute',
         bottom: moderateVerticalScale(5),
     },
@@ -119,15 +116,13 @@ export default styles = StyleSheet.create({
     },
 
     // Progress Bar Styles
-    Progress_wrapper_potrait: {
-        width: "90%",
-        position: 'absolute',
-        bottom: moderateVerticalScale(250),
-        left: moderateScale(40),
-        // backgroundColor: 'blue',
-        // flex: 1,
-    },
-    Progress_wrapper_landscape: {
+    // Progress_wrapper_potrait: {
+    //     width: "90%",
+    //     position: 'absolute',
+    //     bottom: moderateVerticalScale(250),
+    //     left: moderateScale(40),
+    // },
+    Progress_wrapper: {
         width: "90%",
         position: 'absolute',
         bottom: moderateVerticalScale(5),

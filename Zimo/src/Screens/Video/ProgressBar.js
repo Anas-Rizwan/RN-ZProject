@@ -31,7 +31,7 @@ const ProgressBar = props => {
     };
 
     return (
-        <View style={fullscreen ? styles.Progress_wrapper_landscape : styles.Progress_wrapper_potrait}>
+        <View style={styles.Progress_wrapper}>
             <Slider
                 value={currentTime}
                 minimumValue={0}
