@@ -6,14 +6,15 @@ import Card from './src/Screens/Cards/Card';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
 import ContactPage from './src/Screens/Contact/Contact';
+import TypeWriterScreen from './src/Screens/TypreWriter/TypewriterScreen';
 
 
-const MyComponent = () => {
+const App = () => {
   return (
     <Provider store={store}>
-      <ContactPage />
+      <TypeWriterScreen />
     </Provider>
   );
 };
 
-export default MyComponent;
+export default App;
