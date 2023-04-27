@@ -45,15 +45,14 @@ export default styles = StyleSheet.create({
     },
     contact_view: {
         flex: 1,
-        // marginTop: moderateVerticalScale(41),
+        marginTop: moderateVerticalScale(41),
     },
     sectionHeaderContainer: {
-        marginTop: moderateVerticalScale(25),
         marginBottom: moderateVerticalScale(13.4),
     },
     sectionHeaderLabel: {
         color: 'black',
-        fontSize: scale(16),
+        fontSize: scale(15),
         marginLeft: moderateScale(16),
         fontFamily: 'Lato-Regular',
 
@@ -62,11 +61,11 @@ export default styles = StyleSheet.create({
         flexDirection: 'row',
     },
     listItem_text_view: {
-        marginLeft: moderateScale(30),
         width: '70%',
         flexDirection: 'row',
         borderBottomWidth: 1,
         borderBottomColor: 'rgba(0,0,0,.3)',
+        marginLeft: moderateScale(26),
         marginBottom: moderateVerticalScale(12),
     },
     listItem_text_name: {
@@ -77,18 +76,18 @@ export default styles = StyleSheet.create({
         fontFamily: 'Lato-Regular',
     },
     listItem_text_number: {
-        fontFamily: 'Lato-Regular',
         marginVertical: moderateScale(5),
         fontSize: scale(11.5),
+        fontFamily: 'Lato-Regular',
         width: moderateScale(110),
         marginLeft: moderateScale(46),
         color: 'rgba(0,0,0,.3)',
     },
     listItem_text: {
-        fontFamily: 'Lato-Regular',
         marginTop: moderateVerticalScale(6),
         marginLeft: moderateScale(11),
-        fontSize: scale(9),
+        fontSize: scale(11.5),
+        fontFamily: 'Lato-Regular',
         color: '#BE9F56',
     },
     listItem_text_image: {
