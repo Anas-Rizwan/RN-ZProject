@@ -45,43 +45,47 @@ export default styles = StyleSheet.create({
     },
     contact_view: {
         flex: 1,
-        marginTop: moderateVerticalScale(41),
+        // marginTop: moderateVerticalScale(41),
     },
     sectionHeaderContainer: {
+        marginTop: moderateVerticalScale(25),
         marginBottom: moderateVerticalScale(13.4),
     },
     sectionHeaderLabel: {
         color: 'black',
-        fontSize: scale(9),
+        fontSize: scale(16),
         marginLeft: moderateScale(16),
+        fontFamily: 'Lato-Regular',
 
     },
     listItemContainer: {
         flexDirection: 'row',
     },
     listItem_text_view: {
+        marginLeft: moderateScale(30),
         width: '70%',
         flexDirection: 'row',
         borderBottomWidth: 1,
         borderBottomColor: 'rgba(0,0,0,.3)',
-        marginLeft: moderateScale(26),
         marginBottom: moderateVerticalScale(12),
     },
     listItem_text_name: {
         color: 'black',
-        fontSize: scale(9),
+        fontSize: scale(11.5),
         marginVertical: moderateScale(5),
         width: moderateScale(90),
+        fontFamily: 'Lato-Regular',
     },
     listItem_text_number: {
+        fontFamily: 'Lato-Regular',
         marginVertical: moderateScale(5),
-        fontSize: scale(9),
+        fontSize: scale(11.5),
         width: moderateScale(110),
         marginLeft: moderateScale(46),
         color: 'rgba(0,0,0,.3)',
     },
     listItem_text: {
-
+        fontFamily: 'Lato-Regular',
         marginTop: moderateVerticalScale(6),
         marginLeft: moderateScale(11),
         fontSize: scale(9),
@@ -91,4 +95,32 @@ export default styles = StyleSheet.create({
         marginTop: moderateVerticalScale(6),
         marginLeft: moderateScale(11),
     },
+
+
+
+    new_container: {
+        flex: 1,
+        flexDirection: 'row',
+        backgroundColor: '#fff',
+      },
+      leftContainer: {
+        flex: 4,
+        backgroundColor: '#f0f0f0',
+        alignItems: 'center',
+        paddingTop: '30%',
+      },
+      rightContainer: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      alphabetText: {
+        fontSize:scale(10),
+        // marginTop: 5,
+      },
+      selectedText: {
+        color: 'red',
+        fontWeight: 'bold',
+      },
 });

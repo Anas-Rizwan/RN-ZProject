@@ -12,7 +12,7 @@ import TypeWriterScreen from './src/Screens/TypreWriter/TypewriterScreen';
 const App = () => {
   return (
     <Provider store={store}>
-      <TypeWriterScreen />
+      <ContactPage />
     </Provider>
   );
 };
