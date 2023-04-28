@@ -9,14 +9,14 @@ import styles from './styles';
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 const ContactPage = () => {
-    
+
     const [contacts, setContacts] = useState([]);
     const [contactsLength, setContactsLength] = useState('');
     const [permission, setpermission] = useState(false);
-    const [focus, setfocus] = useState(false);
     const [selectedChar, setSelectedChar] = useState();
-    const [flatListRef, setflatListRef] = useState();
-    const ref = useRef(null);
+    const [listref, setlistref] = useState(null);
+    const [dataSource, setdataSource] = useState([]);
+
     useEffect(() => {
         getPermissions()
     }, [])
@@ -41,49 +41,37 @@ const ContactPage = () => {
                         });
                         return r;
                     }, []);
-                    // console.log('forst lettter is', ContactData)
-                    // console.log('Contact Length', contactsLength)
+
                     setContacts(ContactData)
-                    // const val = alphabet.split('').map((char, index) => {
-                    //     setSelectedChar(char)
-                    //     // console.log('char',index);
-                    //     // return char
-                    // })
-                    // console.log('renderCustomItem',Char);
+
                 })
             } else {
                 setpermission(true)
                 console.log("contacts permission denied");
             }
         } catch (err) {
-            console.warn(err);
+            console.log(err);
         }
     }
 
-   
 
-    const handleScroll = (item) =>
-    (
 
-        // console.log('index', item.item.index),
+    const handleScroll = (item) => {
+        if (dataSource.length > item.item.index) {
+            ref.scrollTo({
+                x: 0,
+                y: dataSource[item.item.index - 1],
+                animated: true
+            })
+        }
+        else {
+            alert("Out of Max Range")
+        }
         setSelectedChar(item.item.title)
-        // randomIndex = Math.floor(Math.random(Date.now()) * this.props.data.length),
-        // flatListRef?.scrollToIndex({ animated: true, index: selectedChar })
-        // ref.current?.scrollIntoView({behavior: 'smooth'})
-        // setlistref(item.item.index)
-        // listref?.ScrollToIndex({ animated: true, index: 1 })
-        // const { contentOffset } = event.nativeEvent;
-        // const index = Math.floor(contentOffset.y / 30);
-    )
+    }
 
-    
-    // const getItemLayout = (data, index) => {
-    //     return { length: 38, offset: 38 * index, index }
-    // }
+
     const renderCustomItem = (item) => {
-
-        // console.log('renderCustomItem',item);
-        // setChar(item.key)
         return (
 
             <View style={styles.listItemContainer}>
@@ -127,43 +115,13 @@ const ContactPage = () => {
                 </TouchableOpacity>
             </View>
 
-
-            {/* <View style={styles.new_container}>
-                <View style={styles.leftContainer}>
-                    <ScrollView onScroll={handleScroll}>
-                        {alphabet.split('').map((char, index) => (
-                            <Text key={index} style={[styles.alphabetText, {backgroundColor: 'red',}]}>{char}</Text>
-                        ))}
-                    </ScrollView>
-                </View>
-                <View style={styles.rightContainer}>
-                    {alphabet.split('').map((char, index) => (
-                        <TouchableOpacity >
-
-                            <Text
-                                key={index}
-                                style={[
-                                    { backgroundColor: 'red', },
-                                    styles.alphabetText,
-                                    selectedChar === char && styles.selectedText
-                                ]}
-                            >
-                                {char}
-                            </Text>
-                        </TouchableOpacity>
-                    ))}
-                </View>
-            </View> */}
             {
                 !permission ?
                     <View style={styles.contact_view} >
 
                         <AlphabetList
-                            // ref={ref}
-                            // getItemLayout={getItemLayout}
-                            // ref={(ref) => setlistref(ref)}
+                            ref={(ref) => setlistref(ref)}
                             data={contacts}
-                            extraData={focus}
                             indexLetterContainerStyle={{
                                 marginRight: 15,
                                 marginTop: moderateVerticalScale(1.5),
@@ -173,36 +131,45 @@ const ContactPage = () => {
                                 width: moderateScale(23),
                             }}
 
-                            indexLetterStyle={{
+                            // indexLetterStyle={{
 
-                                fontSize: scale(11),
-                                color: focus ? '#BE9F56' : 'rgba(0,0,0,0.4)'
-                            }}
+                            //     fontSize: scale(11),
+                            //     color: focus ? '#BE9F56' : 'rgba(0,0,0,0.4)'
+                            // }}
                             renderCustomItem={renderCustomItem}
                             renderCustomSectionHeader={(section) => {
-                                return(
-                                <View style={styles.sectionHeaderContainer}>
-                                    <Text style={styles.sectionHeaderLabel}>{section.title}</Text>
-                                </View>
-                            )}}
-                            // renderCustomIndexLetter={(item) => {
-                            //     // console.log('item',item.item)
-                            //     console.log('renderCustomIndexLetter', selectedChar)
-                            //     return (
-                            //         <TouchableOpacity onPress={() => handleScroll(item)}>
-                            //             <View >
-                            //                 <Text style={{...styles.alphabetText,
-                            //                     color: selectedChar === item.item.title ? '#BE9F56' : 'rgba(0,0,0,0.4)'
-                            //                 }} >{item.item.title}</Text>
-                            //             </View>
-                            //         </TouchableOpacity>
+                                return (
+                                    <View
+                                        style={styles.sectionHeaderContainer}
+                                        onLayout={(event) => {
+                                            const layout = event.nativeEvent.layout
+                                            dataSource[section.index] = layout.y
+                                            setdataSource(dataSource)
+                                            console.log('height', layout.height);
+                                            console.log('width', layout.width);
+                                            console.log('x', layout.x);
+                                            console.log('y', layout.y);
+                                        }}
+                                    >
+                                        <Text style={styles.sectionHeaderLabel}>{section.title}</Text>
+                                    </View>
+                                )
+                            }}
+                            renderCustomIndexLetter={(item) => {
+                                // console.log('renderCustomIndexLetter', selectedChar)
+                                return (
+                                    <TouchableOpacity onPress={() => handleScroll(item)}>
+                                        <View >
+                                            <Text style={{
+                                                ...styles.alphabetText,
+                                                color: selectedChar === item.item.title ? '#BE9F56' : 'rgba(0,0,0,0.4)'
+                                            }} >{item.item.title}</Text>
+                                        </View>
+                                    </TouchableOpacity>
 
-                            //     )
-                            // }}
-                            // onScroll={ScrollToIndex({ animated: true, index: listref })}
-                            // index={alphabet.split('').map((char, index) => (
-                            //     char === customIndex ? setfocus(false) : setfocus(true)
-                            // ))}
+                                )
+                            }}
+                          
                             showsVerticalScrollIndicator={false}
                         />
 
