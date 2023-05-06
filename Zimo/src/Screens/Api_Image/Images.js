@@ -4,16 +4,17 @@ import { View, Text, StyleSheet, ScrollView, Image, FlatList, ActivityIndicator 
 import { useDispatch, useSelector } from 'react-redux';
 import { FetchImageList } from '../../redux/slice/imageslice';
 import { moderateScale, moderateVerticalScale, scale } from 'react-native-size-matters';
+import { userAction } from '../../redux-thunk/action/action';
 // create a component
 const Images = () => {
-    const state = useSelector((state) => state.image)
-    const data = state.item?.data.listing
+    const state = useSelector((state) => state.rootReducer?.ListItem)
+    const data = state.item?.listing
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         try {
-            let res = dispatch(FetchImageList())
+            let res = dispatch(userAction())
         } catch (error) {
             console.log('Error', error);
         }
@@ -59,12 +60,9 @@ const Images = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor: '#2c3e50',
     },
     card_view: {
-        // backgroundColor: 'red',
         marginVertical: moderateVerticalScale(30),
     },
     text_view: {
