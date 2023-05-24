@@ -6,7 +6,7 @@ const { height, width } = Dimensions.get('window');
 export default styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        // justifyContent: 'center',
 
     },
     // ****************** ImageItem style ***************************
@@ -42,6 +42,7 @@ export default styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     progressview:{
+       
         marginRight: moderateScale(60),
     },
     pricebox: {
@@ -57,7 +58,8 @@ export default styles = StyleSheet.create({
     bottomtext: {
         marginHorizontal: moderateScale(4),
         color: 'white',
-        fontSize: scale(8),
+        fontSize: scale(7.5),
+        fontFamily: 'Lato-Regular',
     },
     bottom_end_text: {
         marginVertical: moderateVerticalScale(4),
@@ -114,5 +116,41 @@ export default styles = StyleSheet.create({
         fontWeight: 100,
         marginTop: moderateVerticalScale(-13),
         fontSize: scale(12),
+    },
+
+
+
+    bg_img_right: {
+        position: 'absolute',
+        width: moderateScale(204),
+        height: moderateVerticalScale(100),
+        alignSelf: 'flex-end',
+        marginTop: moderateVerticalScale(100),
+        tintColor: 'rgba(0,0,0,.6)'
+    },
+    bg_text: {
+        position: 'absolute',
+        top: moderateVerticalScale(135),
+        left: moderateScale(57),
+        fontFamily: 'Lato-Regular',
+        fontSize: scale(42),
+        color: "rgba(0,0,0,.06)",
+        alignSelf: 'center',
+        letterSpacing: 2,
+    },
+    bg_img_left: {
+        position: 'absolute',
+        width: moderateScale(204),
+        height: moderateVerticalScale(100),
+        bottom: moderateVerticalScale(60),
+        tintColor: 'rgba(0,0,0,.6)'
+    },
+    Header_view: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        height: moderateVerticalScale(49),
+        borderBottomWidth: 0.5,
+        // marginBottom: 100,
     },
 })

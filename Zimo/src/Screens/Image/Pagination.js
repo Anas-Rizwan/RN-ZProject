@@ -4,6 +4,7 @@ import ImageData from './ImageData';
 import styles from './style';
 
 const Pagination = ({ item, currentIndex }) => {
+    console.log('Pagination currentIndex', currentIndex);
     return (
         <View
             style={styles.pagination_view}>

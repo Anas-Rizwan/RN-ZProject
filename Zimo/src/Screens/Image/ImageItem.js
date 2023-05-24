@@ -3,13 +3,13 @@ import React from 'react'
 import Pagination from './Pagination';
 import styles from './style';
 import Timer from './Timer';
-import { moderateScale } from 'react-native-size-matters';
+import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
 
 
-const ImageItem = ({ item, currentIndex }) => {
+const ImageItem = ({ item, currentIndex, key }) => {
 
     return (
-        <View style={styles.renderView}>
+        <View key={item.id} style={styles.renderView}>
             <View style={styles.bgImgView}>
 
                 <ImageBackground source={item.bgimg} style={styles.bgImg} >
@@ -27,13 +27,19 @@ const ImageItem = ({ item, currentIndex }) => {
 
                         <View style={styles.bottomview}>
                             <View style={styles.progressview}>
-                                <Image source={item.progress} />
+                                <Image source={item.progress} style={{
+                                    width: moderateScale(33),
+                                    height: moderateVerticalScale(33),
+                                }} />
                             </View>
 
                             <View>
                                 <View style={styles.pricebox}>
                                     <Text style={{ color: 'white' }}>{item.price}</Text>
-                                    <Image source={item.logo} />
+                                    <Image source={item.logo} style={{
+                                    width: moderateScale(56),
+                                    height: moderateVerticalScale(20),
+                                }} />
                                 </View>
                                 <Pagination item={item} currentIndex={currentIndex} />
                             </View>

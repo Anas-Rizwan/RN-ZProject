@@ -9,11 +9,12 @@ import ContactPage from './src/Screens/Contact/Contact';
 import TypeWriterScreen from './src/Screens/TypreWriter/TypewriterScreen';
 import Images from './src/Screens/Api_Image/Images';
 import store from './src/redux-thunk/store';
+import Object_array from './src/Screens/Test_object/Object_array';
 
 const App = () => {
   return (
     <Provider store={store}>
-      <Images />
+      <Object_array />
     </Provider>
   );
 };

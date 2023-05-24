@@ -8,6 +8,7 @@ import styles from './style';
 import ProgressBar from './ProgressBar';
 import PlayerControls from './PlayerControls';
 import axios from 'axios'
+import NetInfo from "@react-native-community/netinfo";
 
 const VideoContent = () => {
 
@@ -17,9 +18,20 @@ const VideoContent = () => {
     const [show, setshow] = useState(true);
     const [fullscreen, setFullscreen] = useState(false);
     const [loading, setloading] = useState(true);
-    const [uri, seturi] = useState('');
+    const [videoLoaded, setVideoLoaded] = useState(false);
+    const [hasError, setHasError] = useState(false);
+    const [isConnected, setIsConnected] = useState(true);
 
-    
+    useEffect(() => {
+        const unsubscribe = NetInfo.addEventListener(state => {
+            setIsConnected(state.isConnected);
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, []);
+
     const videoRef = React.createRef();
     useEffect(() => {
         Orientation.addOrientationListener(handleOrientation);
@@ -27,24 +39,6 @@ const VideoContent = () => {
             Orientation.removeOrientationListener(handleOrientation);
         };
     }, []);
-
-    // const GetUri = async ()=>{
-    //     try {
-    //         const link = await axios.get('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4')
-    //         // const url = link.json()
-    //         console.log('link' ,link);
-    //         seturi(link)
-    //         setloading(false)
-    //     } catch (error) {
-    //         console.log("There is an Error");
-    //     }
-    // }
-    useEffect(() => {
-        setTimeout(() => {
-        setloading(false)
-        }, 5000);
-
-    }, [])
 
     const handleOrientation = orientation => {
         if (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') {
@@ -78,7 +72,10 @@ const VideoContent = () => {
     };
 
     const onLoad = data => {
-        setloading(false)
+        setloading(false);
+        setDuration(data.duration);
+        setCurrentTime(data.currentTime);
+        setVideoLoaded(true);
         setDuration(data.duration);
         setCurrentTime(data.currentTime);
     };
@@ -98,14 +95,11 @@ const VideoContent = () => {
     };
 
     const onError = () => {
-        Alert.alert('There is an Error while playing video');
+        setHasError(true);
+        setIsConnected(false);
+    };
+    
 
-    }
-    const onBuffer = () => {
-        Alert.alert('There is an Error while playing video');
-
-    }
-   
     return (
         <View style={styles.container}>
             <StatusBar translucent backgroundColor='transparent' />
@@ -127,55 +121,59 @@ const VideoContent = () => {
 
 
 
-            {
-                loading &&
-                <ActivityIndicator size="large" color="#fff" style={{ justifyContent: 'center',alignSelf: 'center', position: 'absolute', top: '50%',}} />
-                    }
-                    <TouchableHighlight activeOpacity={1} onPress={handleclick}>
-                        <View style={styles.videocontainer}>
+            {(
+                loading && !videoLoaded &&
+                <ActivityIndicator size="large" color="#fff" style={{ justifyContent: 'center', alignSelf: 'center', position: 'absolute', top: '50%', }} />
+            )}
+           
+            {!isConnected && !loading && (
+                <ActivityIndicator size="large" color="#fff" style={{ justifyContent: 'center', alignSelf: 'center', position: 'absolute', top: '50%', zIndex: 1, }} />
+            )}
+
+            {hasError && !loading && (
+                <ActivityIndicator size="large" color="#fff" style={{ justifyContent: 'center', alignSelf: 'center', position: 'absolute', top: '50%',zIndex: 1, }} />
+            )}
+
+            <TouchableHighlight activeOpacity={1} onPress={handleclick}>
+                <View style={styles.videocontainer}>
+
+                        <Video
+                            ref={videoRef}
+                            source={{ uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4' }}
+                            resizeMode='contain'
+                            style={fullscreen ? styles.fullscreenVideo : styles.video}
+                            onLoad={onLoad}
+                            onProgress={onProgress}
+                            onEnd={onEnd}
+                            paused={!play || !isConnected}
+                            onError={onError}
+
+                        />
+                
+                 
+                    {show && (
+                        <View style={styles.controlOverlay}>
 
 
-                            <Video
-                                ref={videoRef}
-                                source={{ uri:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4' }}
-                                resizeMode='contain'
-                                style={fullscreen ? styles.fullscreenVideo : styles.video}
-                                onLoad={onLoad}
-                                onProgress={onProgress}
-                                onEnd={onEnd}
-                                paused={!play}
-                                onError={onError}
-                                // onLoadStart={onLoadStart}
-                                // onLoadEnd={onLoadEnd}
-                                // onBuffer={onBuffer}
-                                onVideoBuffer={() => {
-                                    console.log("Video Buffer");
-                                }}
+                            <PlayerControls
+                                onPlay={handlePlay}
+                                onPause={handlePlayPause}
+                                playing={play}
+                                fullscreen={fullscreen}
                             />
-                            {show && (
-                                <View style={styles.controlOverlay}>
 
-
-                                    <PlayerControls
-                                        onPlay={handlePlay}
-                                        onPause={handlePlayPause}
-                                        playing={play}
-                                        fullscreen={fullscreen}
-                                    />
-
-                                    <ProgressBar
-                                        currentTime={currentTime}
-                                        duration={duration > 0 ? duration : 0}
-                                        onSlideStart={handlePlayPause}
-                                        onSlideComplete={handlePlayPause}
-                                        onSlideCapture={onSeek}
-                                        fullscreen={fullscreen}
-                                    />
-                                </View>
-                            )}
+                            <ProgressBar
+                                currentTime={currentTime}
+                                duration={duration > 0 ? duration : 0}
+                                onSlideStart={handlePlayPause}
+                                onSlideComplete={handlePlayPause}
+                                onSlideCapture={onSeek}
+                                fullscreen={fullscreen}
+                            />
                         </View>
-                    </TouchableHighlight>
-            {/* } */}
+                    )}
+                </View>
+            </TouchableHighlight>
             {
                 show ?
 

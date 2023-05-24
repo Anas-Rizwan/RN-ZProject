@@ -27,6 +27,8 @@ export default styles = StyleSheet.create({
 
     head_logo_potrait: {
         marginTop: moderateVerticalScale(40),
+        height: moderateVerticalScale(50),
+        
     },
     head_arrow_potrait: {
         marginTop: moderateVerticalScale(42),
